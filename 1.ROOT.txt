@@ -1,0 +1,30 @@
+x = ROOT.RooRealVar( "Gaussian Distribution", "Gaussian Distribution", -10 , 10 )
+alpha = ROOT.RooRealVar( "alpha" , "alpha" , 0 , -10 , 10 )
+sigma = ROOT.RooRealVar( "sigma" , "sigma" , 1 , 0.1 , 10 )
+x0 = ROOT.RooRealVar( "x0", "x0" , 1, -10 , 10 )
+n = ROOT.RooRealVar( "n", "n" , 1, -10 , 10 )
+
+
+print('\n', 'x --> ', x , '\n',
+      'alpha --> ', alpha , '\n',
+      'sigma --> ', sigma , '\n',
+'x0 --> ', x0 , '\n',
+'n --> ', n , '\n')
+
+cb = ROOT.CBShape("cb", "cb", "x", "x0", "sigma", "alpha", "n")
+
+xframe= x.frame()
+gauss.plotOn( xframe)
+xframe.Draw()
+
+data = cb.generate( ROOT.RooArgSet(x) , 1000 )
+
+cb.ROOT.fit.To(data)
+
+
+xframe2 = x.frame()
+data.plotOn( xframe2 )
+cb.plotOn( xframe2 )
+c1 = ROOT.TCanvas()
+xframe2.Draw()
+c1.Draw()
