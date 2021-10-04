@@ -1,0 +1,76 @@
+mass = ROOT.RooRealVar("mass","#mu^{+}#mu^{-} invariant mass",2.,6.,"GeV")
+
+
+
+
+meanJpsi = ROOT.RooRealVar("meanJpsi","The mean of the Jpsi Gaussian",3.1,2.8,3.2) # J/Psi mean 
+sigmaJpsi = ROOT.RooRealVar("sigmaJpsi","The width of the Jpsi Gaussian",0.3,0.0001,1.) # J/Psi error
+alphaJpsi = ROOT.RooRealVar("alphaJpsi","The alpha of the Jpsi Gaussian",1.5,-5.,5.) #
+nJpsi = ROOT.RooRealVar("nJpsi","The alpha of the Jpsi Gaussian",1.5,0.5,5.)
+
+
+
+print('\n',
+       meanJpsi,'\n',
+       sigmaJpsi,'\n',
+       alphaJpsi,'\n',
+       nJpsi,'\n' )
+
+ 
+
+
+CBJpsi = ROOT.RooCBShape( "CBJpsi","The Jpsi Crystall Ball", mass , meanJpsi , sigmaJpsi , alphaJpsi , nJpsi )
+
+
+
+print(CBJpsi)
+
+
+meanpsi2S = ROOT.RooRealVar("meanpsi2S","The mean of the psi(2S) Gaussian",3.7,3.6,3.8)
+gausspsi2S = ROOT.RooGaussian("gausspsi2S","The psi(2S) Gaussian",mass,meanpsi2S,sigmaJpsi)
+
+
+
+print('\n',
+      
+      "The mean of the psi(2S) Gaussian ---> " , meanpsi2S, '\n',
+      "The psi(2S) Gaussian ---> " , gausspsi2S
+     )
+
+
+a1 = ROOT.RooRealVar("a1","The a1 of background",-0.7,-2.,2.)
+a2 = ROOT.RooRealVar("a2","The a2 of background",0.3,-2.,2.)
+a3 = ROOT.RooRealVar("a3","The a3 of background",-0.03,-2.,2.)
+backgroundPDF = ROOT.RooPolynomial("backgroundPDF","The background PDF",mass,ROOT.RooArgList(a1,a2,a3))
+
+
+
+print( 
+       '\n',
+    
+       "a1 -->", a1,'\n',
+       "a2 -->", a2,'\n',
+       "a3 -->", a3,'\n',
+)
+
+ 
+
+
+
+NJpsi = ROOT.RooRealVar("NJpsi","The Jpsi signal events",1500.,0.1,10000.)
+Npsi = ROOT.RooRealVar("Npsi","The psi signal events",100.,0.1,5000.)
+Nbkg = ROOT.RooRealVar("Nbkg","The bkg events",5000.,0.1,50000.)
+
+
+
+print('\n',
+      "The Jpsi signal events --> ", NJpsi , '\n',
+      "The psi signal events --> ", Npsi , '\n',
+      "The background events --> ", Nbkg , '\n'
+     )
+
+ 
+
+
+
+
